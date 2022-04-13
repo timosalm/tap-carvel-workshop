@@ -1,0 +1,10 @@
+#@data/values
+---
+container_registry:
+  hostname: harbor.example.com
+  username: admin
+  password:
+workshop_git:
+  username: user
+  branch: master
+tap_product_docs_base_url: https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap

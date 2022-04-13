@@ -1,0 +1,1 @@
+- Failed to find the "go" binary in either GOROOT() or PATH(/home/eduk8s/.krew/bin:/home/eduk8s/bin:/opt/eduk8s/bin:/opt/kubernetes/bin:/opt/code-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin). Check PATH, or Install Go and reload the window. If PATH isn't what you expected, see https://github.com/golang/vscode-go/issues/971

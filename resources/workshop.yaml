@@ -1,0 +1,201 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: Workshop
+metadata:
+  name: tap-carvel-workshop
+spec:
+  title: Carvel for TAP
+  description: A workshop for self-paced learning of all the tools Carvel provides for the installation of TAP
+  vendor: tanzu.vmware.com
+  difficulty: beginner
+  duration: 90m
+  url: https://github.com/tsalm-pivotal/tap-carvel-workshop
+  content:
+    image: #@ "{}/tap-workshop/tap-carvel-workshop:latest".format(data.values.container_registry.hostname)
+    files: #@ "github.com/{}/tap-carvel-workshop?ref={}".format(data.values.workshop_git.username,data.values.workshop_git.branch)
+  session:
+    namespaces:
+      budget: small
+    applications:
+      terminal:
+        enabled: true
+        layout: split
+      console:
+        enabled: false
+      editor:
+        enabled: true
+      docker:
+        enabled: true
+        storage: 1Gi
+    env: 
+    - name: TAP_PRODUCT_DOCS_BASE_URL
+      value: #@ data.values.tap_product_docs_base_url
+    - name: CONTAINER_REGISTRY_HOSTNAME
+      value: #@ data.values.container_registry.hostname
+    - name: CONTAINER_REGISTRY_USERNAME
+      value: #@ data.values.container_registry.username
+    - name: CONTAINER_REGISTRY_PASSWORD
+      value: #@ data.values.container_registry.password  
+    objects:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: carvel-workshop-examples
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      metadata:
+        name: $(session_namespace)-cluster-resources-reader
+      rules:
+      - apiGroups: [apiextensions.k8s.io]
+        resources: ["customresourcedefinitions"]
+        verbs: ["get", "watch", "list"]
+      - apiGroups: [data.packaging.carvel.dev]
+        resources: ["packages", "packagemetadatas"]
+        verbs: ["get", "watch", "list"]
+      - apiGroups: [packaging.carvel.dev]
+        resources: ["packageinstalls", "packagerepositories"]
+        verbs: ["get", "watch", "list"]
+      - apiGroups: [kappctrl.k14s.io]
+        resources: ["apps"]
+        verbs: ["get", "watch", "list"]
+      
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-cluster-resources
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: $(session_namespace)-cluster-resources-reader
+      subjects:
+      - kind: Group
+        name: system:serviceaccounts:$(workshop_namespace)
+        apiGroup: rbac.authorization.k8s.io
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: $(session_namespace)-default
+        namespace: kapp-controller
+      rules:
+        - apiGroups: [""]
+          resources: ["pods"]
+          verbs: ["list"]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: $(session_namespace)-default
+        namespace: secretgen-controller
+      rules:
+        - apiGroups: [""]
+          resources: ["pods"]
+          verbs: ["list"]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: $(session_namespace)-default
+        namespace: secretgen-controller
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: $(session_namespace)-default     
+      subjects:
+      - kind: Group
+        name: system:serviceaccounts:$(workshop_namespace)
+        namespace: $(session_namespace)
+        apiGroup: rbac.authorization.k8s.io
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: $(session_namespace)-default
+        namespace: kapp-controller
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: $(session_namespace)-default     
+      subjects:
+      - kind: Group
+        name: system:serviceaccounts:$(workshop_namespace)
+        namespace: $(session_namespace)
+        apiGroup: rbac.authorization.k8s.io
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: $(session_namespace)-secretgen
+        namespace: $(session_namespace)
+      rules:
+        - apiGroups: ["secretgen.k14s.io"]
+          resources: ["passwords"]
+          verbs: ["*"]
+        - apiGroups: ["secretgen.carvel.dev"]
+          resources: ["secretimports"]
+          verbs: ["*"]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: $(session_namespace)-secretgen
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: $(session_namespace)-secretgen
+      subjects:
+      - kind: Group
+        name: system:serviceaccounts:$(workshop_namespace)
+        namespace: $(session_namespace)
+        apiGroup: rbac.authorization.k8s.io
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: $(session_namespace)-secret-export
+        namespace: carvel-workshop-examples
+      rules:
+        - apiGroups: [""]
+          resources: ["secrets"]
+          verbs: ["*"]
+        - apiGroups: ["secretgen.carvel.dev"]
+          resources: ["secretexports"]
+          verbs: ["*"]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: $(session_namespace)-secret-export
+        namespace: carvel-workshop-examples
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: $(session_namespace)-secret-export     
+      subjects:
+      - kind: Group
+        name: system:serviceaccounts:$(workshop_namespace)
+        namespace: $(session_namespace)
+        apiGroup: rbac.authorization.k8s.io
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: $(session_namespace)-default
+      rules:
+      - apiGroups: ["kappctrl.k14s.io"]
+        resources: ["apps"]
+        verbs: ["*"]
+      - apiGroups: [""]
+        resources: ["configmaps", "services"]
+        verbs: ["*"]
+      - apiGroups: ["apps"]
+        resources: ["deployments"]
+        verbs: ["*"]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: $(session_namespace)-default
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: $(session_namespace)-default
+      subjects:
+        - kind: Group
+          name: system:serviceaccounts:$(workshop_namespace)
+          namespace: $(session_namespace)
+          apiGroup: rbac.authorization.k8s.io
+        - kind: ServiceAccount
+          name: default
+          namespace: $(session_namespace)

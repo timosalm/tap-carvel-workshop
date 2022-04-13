@@ -1,0 +1,14 @@
+name: Markdown Sample
+modules:
+  activate:
+    - workshop-overview
+    - exercises/Ytt
+    - exercises/Kbld-imgpkg-vendir
+    - exercises/Kapp
+    - exercises/Kapp-Secret-Controller
+    - exercises/Cluster-Essentials
+    - exercises/Secret-Controller
+    - exercises/Kapp-Controller
+    - exercises/Packages
+    - exercises/Prepare-Install
+    - workshop-summary

@@ -1,0 +1,34 @@
+modules:
+    workshop-overview:
+        name: Workshop Overview
+        exit_sign: ytt
+    exercises/Ytt:
+        name: All your YAML shaping in one tool
+        exit_sign: kbld, imgpkg, and vendir
+    exercises/Kbld-imgpkg-vendir:
+        name: The Carvel tools kbld, imgpkg, and vendir
+        exit_sign: kapp
+    exercises/Kapp:
+        name: Take control of your Kubernetes resources
+        exit_sign: kapp- and secretgen-controller
+    exercises/Kapp-Secret-Controller:
+        name: The kapp- and secretgen-controller
+        exit_sign: Cluster Essentials
+    exercises/Cluster-Essentials:
+        name: Install Cluster Essentials for VMware Tanzu
+        exit_sign: secretgen-controller
+    exercises/Secret-Controller:
+        name: Generate, export and import Secrets across namespaces
+        exit_sign: kapp-controller
+    exercises/Kapp-Controller:
+        name: Continuous delivery and package management for Kubernetes
+        exit_sign: Package management
+    exercises/Packages:
+        name: Package management for Kubernetes
+        exit_sign: Installation Profiles
+    exercises/Prepare-Install:
+        name: Tanzu Application Platform Installation Profiles
+        exit_sign: Workshop Summary
+    workshop-summary:
+        name: Workshop Summary
+        exit_sign: Finish Workshop

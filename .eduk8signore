@@ -1,0 +1,10 @@
+./.dockerignore
+./.gitignore
+./Dockerfile
+./LICENSE
+./README.md
+./kustomization.yaml
+./resources
+values.yaml
+values-example.yaml
+install.sh

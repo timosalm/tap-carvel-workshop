@@ -1,0 +1,20 @@
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: TrainingPortal
+metadata:
+  name: tap-workshops
+spec:
+  portal:
+    title: Self-paced learning workshops for VMware Tanzu Application Platform
+    ingress:
+        hostname: tap-workshops
+    registration:
+        type: anonymous
+    updates:
+      workshop: true
+    sessions:
+      maximum: 2
+    reserved: 1
+  workshops:
+    - name: tap-carvel-workshop
+      expires: 90m
+      orphaned: 90m
