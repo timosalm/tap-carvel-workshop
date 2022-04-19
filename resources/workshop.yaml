@@ -38,10 +38,6 @@ spec:
     - name: CONTAINER_REGISTRY_PASSWORD
       value: #@ data.values.container_registry.password  
     objects:
-    - apiVersion: v1
-      kind: Namespace
-      metadata:
-        name: carvel-workshop-examples
     - apiVersion: rbac.authorization.k8s.io/v1
       kind: ClusterRole
       metadata:
