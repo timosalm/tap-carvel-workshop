@@ -56,7 +56,7 @@ clear: true
 ```
 or the recently released [kctrl CLI](https://carvel.dev/kapp-controller/docs/v0.36.1/app-command/).
 ```terminal:execute
-command: kctrl get app -a spring-petclinic-kappctl
+command: kctrl app get -a spring-petclinic-kappctl
 clear: true
 ```
 
