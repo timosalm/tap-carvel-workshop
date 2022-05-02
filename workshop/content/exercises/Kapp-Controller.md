@@ -48,14 +48,27 @@ If you deploy the App, kapp-controller will fetch the GitHub repo, template the 
 command: kubectl apply -f kappctl-spring-petclinic.yaml
 clear: true
 ```
+
+You can have a look at the App via kubectl ...
 ```terminal:execute
 command: kubectl get app.kappctrl.k14s.io spring-petclinic-kappctl
 clear: true
 ```
+or the recently released [kctrl CLI](https://carvel.dev/kapp-controller/docs/v0.36.1/app-command/).
+```terminal:execute
+command: kctrl get app -a spring-petclinic-kappctl
+clear: true
+```
+
+And finally the resources it has deployed via
 ```terminal:execute
 command: kubectl get service,deployment,pods
 clear: true
 ```
+
+kapp-controller automatically updates the resources in the cluster if the source, in our example the contents of the GitHub repo, change or reverts manual changes of resources in the cluster. This process is called reconciliation.
+The periodic reconciliation can be paused by setting the `.spec.paused` configuration of the App to `true` or the `kctrl app pause` command to for example try something out by manually changing the resources.
+The `kctrl app kick` command can be used to trigger reconciliatio and tail the app status till it reconciles if desired. It can also be used to restart periodic reconciliation for a paused app.
 
 Let's execute the following command to clean up the directory and look at the **Package consumption** and **authoring** use-cases for the TAP installation in the next section.
 ```execute

@@ -109,6 +109,10 @@ clear: true
 As a summary for package management with Carvel, here is a diagram that shows the relationship of all the CRDs we talked about in the last sections.
 ![Carvel Package Management](../images/carvel.png)
 
+###### kctrl CLI package commands
+Like the the tanzu CLI, the kctrl CLI also provides [options](https://carvel.dev/kapp-controller/docs/v0.36.1/package-command/) to interact with package repositories, available packages and package installs.
+In addition it provides commands to pause the reconciliation for a package install via `kctrl package installed pause -i` and to trigger reconciliation for an installed package via `kctrl package installed kick -i`.
+
 ###### Overlays with PackageInstall
 PackageInstalls expose the ability to customize package installation using annotations recognized by kapp-controller.
 
