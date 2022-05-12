@@ -13,7 +13,7 @@ RUN curl -L -o /usr/local/bin/pivnet https://github.com/pivotal-cf/pivnet-cli/re
 COPY tanzu-framework-linux-amd64.tar /tmp
 RUN export TANZU_CLI_NO_INIT=true
 RUN cd /tmp && tar -xvf "tanzu-framework-linux-amd64.tar" -C /tmp && \ 
-    sudo install "cli/core/v0.11.2/tanzu-core-linux_amd64" /usr/local/bin/tanzu && \ 
+    sudo install "cli/core/v0.11.4/tanzu-core-linux_amd64" /usr/local/bin/tanzu && \ 
     tanzu plugin install --local cli all
 
 RUN curl -L -o /usr/local/bin/kctrl https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.36.1/kctrl-linux-amd64 && \
