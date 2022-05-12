@@ -140,18 +140,18 @@ file: carvel-imgpkg/examples/basic-step-1/.imgpkg/bundle.yml
 ###### Pushing the bundle to a registry
 Let's now authenticate with our registry and push the bundle to it registry.
 ```terminal:execute
-command: docker login $CONTAINER_REGISTRY_HOSTNAME -u $CONTAINER_REGISTRY_USERNAME -p $CONTAINER_REGISTRY_PASSWORD
+command: docker login $REGISTRY_HOST -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD
 clear: true
 ```
 ```terminal:execute
-command: imgpkg push -b ${CONTAINER_REGISTRY_HOSTNAME}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 -f carvel-imgpkg/examples/basic-step-1
+command: imgpkg push -b ${REGISTRY_HOST}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 -f carvel-imgpkg/examples/basic-step-1
 clear: true
 ```
 
 ###### Pulling the bundle from registry
 Now that you have pushed a bundle to a registry, other users can pull it.
 ```terminal:execute
-command: imgpkg pull -b ${CONTAINER_REGISTRY_HOSTNAME}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 -o simple-app-bundle
+command: imgpkg pull -b ${REGISTRY_HOST}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 -o simple-app-bundle
 clear: true
 ```
 
@@ -173,18 +173,18 @@ clear: true
 ###### Copy a bundle between registries
 To ensure that your Kubernetes application does not rely on images from external registries when deployed or that all images are consolidated into a single registry, even if that registry is not air-gapped, you can use the **imgpkg copy** command to copy a bundle between registries.
 ```terminal:execute
-command: imgpkg copy -b ${CONTAINER_REGISTRY_HOSTNAME}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 --to-repo ${CONTAINER_REGISTRY_HOSTNAME}/tap-carvel-workshop-examples/copied-simple-app-bundle
+command: imgpkg copy -b ${REGISTRY_HOST}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 --to-repo ${REGISTRY_HOST}/tap-carvel-workshop-examples/copied-simple-app-bundle
 clear: true
 ```
 If you don't have location from which you are able to connect to both registries, there is an option to export/import a tarball.
 ```execute
-imgpkg copy -b ${CONTAINER_REGISTRY_HOSTNAME}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 --to-tar my-image.tar
-imgpkg copy --tar my-image.tar --to-repo ${CONTAINER_REGISTRY_HOSTNAME}/tap-carvel-workshop-examples/copied-simple-app-tar-bundle
+imgpkg copy -b ${REGISTRY_HOST}/tap-carvel-workshop-examples/simple-app-bundle:v1.0.0 --to-tar my-image.tar
+imgpkg copy --tar my-image.tar --to-repo ${REGISTRY_HOST}/tap-carvel-workshop-examples/copied-simple-app-tar-bundle
 ```
 
 If you pull the bundle from the destination registry, you should be able to see that the .imgpkg/images.yml file was updated with the destination registry locations of the images. This happened because, in the prior step, the images referenced by the bundle were copied into the destination registry.
 ```terminal:execute
-command: imgpkg pull -b ${CONTAINER_REGISTRY_HOSTNAME}/tap-carvel-workshop-examples/copied-simple-app-tar-bundle:v1.0.0 -o copied-simple-app-tar-bundle
+command: imgpkg pull -b ${REGISTRY_HOST}/tap-carvel-workshop-examples/copied-simple-app-tar-bundle:v1.0.0 -o copied-simple-app-tar-bundle
 clear: true
 ```
 
