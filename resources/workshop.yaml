@@ -28,6 +28,8 @@ spec:
       docker:
         enabled: true
         storage: 1Gi
+      registry:
+        enabled: true
     env: 
     - name: TAP_PRODUCT_DOCS_BASE_URL
       value: #@ data.values.tap_product_docs_base_url
