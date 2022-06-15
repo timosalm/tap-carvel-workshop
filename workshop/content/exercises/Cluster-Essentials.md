@@ -91,7 +91,7 @@ Because kapp- and secretgen-controller are already installed in this cluster, yo
 
 Let's now check that the Pods of the kapp-controller, and secretgen-controlle are running in our cluster.
 ```execute 
-kubectl get pods -n {{ENV_KAPP_CONTROLLER_NAMESPACE}}} && kubectl get pods -n secretgen-controller
+kubectl get pods -n {{ENV_KAPP_CONTROLLER_NAMESPACE}} && kubectl get pods -n secretgen-controller
 ```
 
 With both running, you can now have a closer look at them after you cleaned up the directory.
