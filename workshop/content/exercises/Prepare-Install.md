@@ -85,7 +85,7 @@ With the current version of TAP it's **not possible to exclude tap-telemetry.tan
 
 To get details for a package, e.g. the `USEFUL-ERROR-MESSAGE`, you can use the following commands.
 ```terminal:execute
-command: tanzu package installed get tap -n tap-install
+command: tanzu package installed get {{ ENV_TAP_PACKAGE_NAME }} -n tap-install
 clear: true
 ```
 ```terminal:execute
