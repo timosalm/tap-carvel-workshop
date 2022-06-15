@@ -85,24 +85,24 @@ With the current version of TAP it's **not possible to exclude tap-telemetry.tan
 
 To get details for a package, e.g. the `USEFUL-ERROR-MESSAGE`, you can use the following commands.
 ```terminal:execute
-command: tanzu package installed get tap -n tap-install
+command: tanzu package installed get {{ ENV_TAP_PACKAGE_NAME }} -n tap-install
 clear: true
 ```
 ```terminal:execute
-command: kubectl describe packageinstalls tap -n tap-install
+command: kubectl describe packageinstalls {{ ENV_TAP_PACKAGE_NAME }} -n tap-install
 clear: true
 ```
 With the eksporter krew plugin, it's easier to have a look at the spec, which references the Package CR, specifies a service account that will be used to install underlying package contents, and references a secret that includes values to be included in package's templating step.
 ```terminal:execute
-command: kubectl eksporter packageinstalls tap -n tap-install
+command: kubectl eksporter packageinstalls {{ ENV_TAP_PACKAGE_NAME }} -n tap-install
 clear: true
 ```
 
-You can also view the App CR created as a result of the PackageInstall creation via `kubectl tree packageinstalls tap -n tap-install` if you have the privileges.
+You can also view the App CR created as a result of the PackageInstall creation via `kubectl tree packageinstalls {{ ENV_TAP_PACKAGE_NAME }} -n tap-install` if you have the privileges.
 
 And can have a closer look with.
 ```terminal:execute
-command: kubectl describe app tap -n tap-install
+command: kubectl describe app {{ ENV_TAP_PACKAGE_NAME }} -n tap-install
 clear: true
 ```
 

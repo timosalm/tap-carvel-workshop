@@ -28,14 +28,16 @@ spec:
       docker:
         enabled: true
         storage: 1Gi
+      registry:
+        enabled: true
     env: 
     - name: TAP_PRODUCT_DOCS_BASE_URL
       value: #@ data.values.tap_product_docs_base_url
-    - name: CONTAINER_REGISTRY_HOSTNAME
+    - name: REGISTRY_HOST
       value: #@ data.values.container_registry.hostname
-    - name: CONTAINER_REGISTRY_USERNAME
+    - name: REGISTRY_USERNAME
       value: #@ data.values.container_registry.username
-    - name: CONTAINER_REGISTRY_PASSWORD
+    - name: REGISTRY_PASSWORD
       value: #@ data.values.container_registry.password  
     objects:
     - apiVersion: rbac.authorization.k8s.io/v1

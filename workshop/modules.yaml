@@ -32,3 +32,9 @@ modules:
     workshop-summary:
         name: Workshop Summary
         exit_sign: Finish Workshop
+config:
+    vars:
+    - name: KAPP_CONTROLLER_NAMESPACE
+      value: kapp-controller
+    - name: TAP_PACKAGE_NAME
+      value: tap
