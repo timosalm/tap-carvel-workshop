@@ -37,7 +37,9 @@ clear: true
 
 The **Package** resource is created for every new version of a package and it carries information about how to fetch, template, and deploy the it.
 ```terminal:execute
-command: kubectl eksporter packages tap.tanzu.vmware.com.1.1.0 -n tap-install
+command: |
+  TAP_VERSION=$(kubectl get packages -n tap-install -o jsonpath='{.items[?(@.spec.refName=="tap.tanzu.vmware.com")].spec.version}')
+  kubectl eksporter packages tap.tanzu.vmware.com.$TAP_VERSION -n tap-install
 clear: true
 ```
 
