@@ -4,7 +4,7 @@ kapp-controller's **PackageRepository** CRD allows you to easily discover a coll
 
 During the installation process of TAP, you have to add the TAP PackageRepository to your target Kubernets cluster via the following tanzu CLI command.
 `tanzu package repository add tanzu-tap-repository \
-  --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.1.0 \
+  --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:X.X.X \
   --namespace tap-install`
 
 Let's now have a closer look.
