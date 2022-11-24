@@ -5,7 +5,7 @@ The relevant documentation can be found in the TAP product documentation here:
 url: {{ ENV_TAP_PRODUCT_DOCS_BASE_URL }}/GUID-install.html#install-your-tanzu-application-platform-profile-1
 ```
 
-With the current version of TAP (1.1), there are the following profiles available:
+With the current version of TAP (1.3), there are the following profiles available:
 - **Full**: This profile contains all of the Tanzu Application Platform packages 
 - **Iterate**: This profile is intended for iterative application development.
 - **Build**: This profile is intended for the transformation of source revisions to workload revisions. Specifically, hosting workloads and SupplyChains.
@@ -19,56 +19,32 @@ file: tap-values.yaml
 text: |
   profile: full
   ceip_policy_disclosed: true
-  buildservice:
-    kp_default_repository: registry.example.com/tap/build-service
-    kp_default_repository_username: admin
-    kp_default_repository_password: <password>
-    tanzunet_username: user@example.com
-    tanzunet_password: <password>
-    enable_automatic_dependency_updates: true
-    descriptor_name: full
+  shared:
+    ingress_domain: tap.example.com
+    image_registry: 
+      project_path: registry.example.com/tap
+      username: admin
+      password: <password>
+  
   supply_chain: testing_scanning
   ootb_supply_chain_testing_scanning:
-    registry:
-      server: registry.example.com
-      repository: tap-wkld
     gitops:
       ssh_secret: ""
-  learningcenter:
-    ingressDomain: learning-center.tap.example.com
+      
   tap_gui:
     ingressEnabled: true
-    ingressDomain: tap.example.com
-    service_type: ClusterIP
-    app_config:
-      backend:
-        baseUrl: http://tap-gui.tap.example.com
-        cors:
-          origin: http://tap-gui.tap.example.com
-      app:
-        baseUrl: http://tap-gui.tap.example.com
-  metadata_store:
-    app_service_type: ClusterIP
-  contour:
-    envoy:
-      service:
-        type: LoadBalancer
+
   accelerator:
-    domain: tap.example.com
     ingress:
       include: true
-      enable_tls: false
-    server:
-      service_type: ClusterIP
-  cnrs:
-    domain_name: cnr.tap.example.com
+    
   grype:
     namespace: default
     targetImagePullSecret: registry-credentials
 ```
 
 The installation can then be executed via
-`tanzu package install tap -p tap.tanzu.vmware.com -v 1.1.0 --values-file tap-values.yml -n tap-install`
+`tanzu package install tap -p tap.tanzu.vmware.com -v 1.3.0 --values-file tap-values.yml -n tap-install`
 
 With the following command, you can see which packages were installed in the workshop cluster using the **PackageInstall** Custom Resource.
 ```terminal:execute
@@ -110,7 +86,7 @@ As a summary for package management with Carvel, here is a diagram that shows th
 ![Carvel Package Management](../images/carvel.png)
 
 ###### kctrl CLI package commands
-Like the the tanzu CLI, the kctrl CLI also provides [options](https://carvel.dev/kapp-controller/docs/v0.36.1/package-command/) to interact with package repositories, available packages and package installs.
+Like the the tanzu CLI, the kctrl CLI also provides [options](https://carvel.dev/kapp-controller/docs/v0.41.3/package-command/) to interact with package repositories, available packages and package installs.
 In addition it provides commands to pause the reconciliation for a package install via `kctrl package installed pause -i` and to trigger reconciliation for an installed package via `kctrl package installed kick -i`.
 
 ###### Overlays with PackageInstall
