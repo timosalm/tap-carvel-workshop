@@ -1,6 +1,6 @@
 The instructions on how to install the **Cluster Essentials for VMware Tanzu** can be found in the TAP product documentation.
 ```dashboard:open-url
-url: {{ ENV_TAP_PRODUCT_DOCS_BASE_URL }}/GUID-install-general.html#tanzu-cluster-essentials
+url: https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.3/cluster-essentials/GUID-deploy.html
 ```
 
 For the installation, you can use the [pivnet CLI](https://github.com/pivotal-cf/pivnet-cli) to download the Cluster Essentials for VMware Tanzu archive from Tanzu Network as an alternative to the browser.
