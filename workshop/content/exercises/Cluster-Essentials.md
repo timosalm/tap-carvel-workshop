@@ -19,11 +19,11 @@ endl: false
 
 You can then run the following commands to download and unpack the archive.
 ```terminal:execute
-command: pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version='1.0.0' --product-file-id=1105818
+command: pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version='1.3.0' --product-file-id=1330470
 clear: true
 ```
 ```terminal:execute
-command: mkdir tanzu-cluster-essentials && tar -xvf "tanzu-cluster-essentials-linux-amd64-1.0.0.tgz" -C tanzu-cluster-essentials
+command: mkdir tanzu-cluster-essentials && tar -xvf "tanzu-cluster-essentials-linux-amd64-1.3.0.tgz" -C tanzu-cluster-essentials
 clear: true
 ```
 Let's have a look at the install script, which uses the Carvel tools ytt, imgpkg, and kbld to install kapp- and secretgen-controller.
