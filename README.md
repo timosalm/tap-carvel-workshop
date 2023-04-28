@@ -2,6 +2,9 @@
 
 A [Learning Center for VMware Tanzu](https://docs.vmware.com/en/Tanzu-Application-Platform/1.0/tap/GUID-learning-center-about.html) workshop for self-paced learning of all the tools Carvel provides for the installation of TAP
 
+## Preparations
+- Create a project `tap-carvel-workshop-examples` in your container registry with push privileges for the user you configure in values.yaml
+
 ## Workshop installation
 Download the Tanzu CLI for Linux from https://network.tanzu.vmware.com/products/tanzu-application-platform to the root of the directory.
 Create a public project called **tap-workshop** and private project called **tap-carvel-workshop-examples** in your registry instance. 
